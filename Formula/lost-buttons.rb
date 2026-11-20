@@ -1,19 +1,23 @@
 class LostButtons < Formula
   desc "Your mouse's side buttons, back on macOS"
   homepage "https://github.com/saaquiblabs/lost-buttons"
-  url "https://github.com/saaquiblabs/lost-buttons/archive/refs/tags/v0.1.0.tar.gz"
-  sha256 "168b34a67078a6d069613a91ee520185e85b84ed36839e58393ee24c585c6b4a"
+  url "https://github.com/saaquiblabs/lost-buttons/archive/refs/tags/v0.2.0.tar.gz"
+  sha256 "da6367bf84e1245bcf8a1c33d269e97542dea7c0319e668ab0f0d714b0305c31"
   license "MIT"
 
   depends_on :macos
 
   def install
     system "make", "test"
-    system "make", "install", "PREFIX=#{prefix}"
+    system "make", "app"
+    # Same layout as homebrew-core's pinentry-mac: the app lives in the prefix, and the
+    # `lost-buttons` command is a small script that runs the binary inside it.
+    prefix.install "build/Lost Buttons.app"
+    bin.write_exec_script prefix/"Lost Buttons.app/Contents/MacOS/lost-buttons"
   end
 
   service do
-    run [opt_bin/"lost-buttons"]
+    run [opt_prefix/"Lost Buttons.app/Contents/MacOS/lost-buttons"]
     keep_alive true
     process_type :interactive
     log_path var/"log/lost-buttons.log"
@@ -27,7 +31,9 @@ class LostButtons < Formula
       Check your mouse:
         lost-buttons doctor
       macOS will ask for Input Monitoring and Accessibility the first time an
-      affected mouse is plugged in.
+      affected mouse is plugged in. Both lists show it as "Lost Buttons".
+      Upgrading from 0.1.0? Remove the old "lost-buttons" entries from both
+      lists and allow "Lost Buttons" once more.
     EOS
   end
 
