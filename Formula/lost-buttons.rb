@@ -1,11 +1,11 @@
 class LostButtons < Formula
   desc "Your mouse's side buttons, back on macOS"
   homepage "https://github.com/saaquiblabs/lost-buttons"
-  url "https://github.com/saaquiblabs/lost-buttons/archive/refs/tags/v0.2.1.tar.gz"
-  sha256 "2770c47bccb4afc672a44d44d877b62e0b5f9ba89e2a6924889984b5f0b36d5f"
+  url "https://github.com/saaquiblabs/lost-buttons/archive/refs/tags/v0.3.0.tar.gz"
+  sha256 "00405a2b936894c36bc498a4576bde8990bfad5844bb14cf8b21f1562c16704e"
   license "MIT"
 
-  depends_on :macos
+  depends_on macos: :ventura
 
   def install
     system "make", "test"
@@ -16,6 +16,8 @@ class LostButtons < Formula
     bin.write_exec_script prefix/"Lost Buttons.app/Contents/MacOS/lost-buttons"
   end
 
+  # 0.3 starts itself as a macOS login item (`lost-buttons start`). This block stays only so that
+  # people coming from 0.2 can still run `brew services stop lost-buttons`.
   service do
     run [opt_prefix/"Lost Buttons.app/Contents/MacOS/lost-buttons"]
     keep_alive true
@@ -27,13 +29,16 @@ class LostButtons < Formula
   def caveats
     <<~EOS
       Start it (and at every login):
-        brew services start lost-buttons
+        lost-buttons start
       Check your mouse:
         lost-buttons doctor
       macOS will ask for Input Monitoring and Accessibility the first time an
       affected mouse is plugged in. Both lists show it as "Lost Buttons".
-      Upgrading from 0.1.0? Remove the old "lost-buttons" entries from both
-      lists and allow "Lost Buttons" once more.
+
+      After every upgrade, run `lost-buttons start` again. macOS may ask for
+      the two permissions again: remove the old "Lost Buttons" entries
+      (select, click -) and switch on the new one.
+      Coming from 0.2? Run `brew services stop lost-buttons` first.
     EOS
   end
 
