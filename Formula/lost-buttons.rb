@@ -1,8 +1,8 @@
 class LostButtons < Formula
   desc "Your mouse's side buttons, back on macOS"
   homepage "https://github.com/saaquiblabs/lost-buttons"
-  url "https://github.com/saaquiblabs/lost-buttons/archive/refs/tags/v0.4.2.tar.gz"
-  sha256 "80120b512037757453a8d03914edc995a7e32f25f9796a96ab307d6ad62bcf59"
+  url "https://github.com/saaquiblabs/lost-buttons/archive/refs/tags/v0.4.3.tar.gz"
+  sha256 "c597852541362d88e6c0fa000a889b2fb1f2c67a03fc465157ce1bcaeb5e5062"
   license "MIT"
 
   depends_on :macos
@@ -31,8 +31,8 @@ class LostButtons < Formula
       Then run `lost-buttons` for a menu: status, your mice, permission settings.
       macOS will ask for Input Monitoring and Accessibility the first time an
       affected mouse is plugged in. Both lists show it as "Lost Buttons".
-      After an upgrade, macOS asks again: remove the old "Lost Buttons" entries
-      (select, click -) and switch on the new one.
+      After an upgrade macOS asks again: run `lost-buttons`, choose
+      Fix permissions, and allow both prompts.
     EOS
   end
 
