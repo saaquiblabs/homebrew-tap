@@ -1,8 +1,8 @@
 class LostButtons < Formula
   desc "Your mouse's side buttons, back on macOS"
   homepage "https://github.com/saaquiblabs/lost-buttons"
-  url "https://github.com/saaquiblabs/lost-buttons/archive/refs/tags/v0.4.3.tar.gz"
-  sha256 "c597852541362d88e6c0fa000a889b2fb1f2c67a03fc465157ce1bcaeb5e5062"
+  url "https://github.com/saaquiblabs/lost-buttons/archive/refs/tags/v0.4.4.tar.gz"
+  sha256 "22e30a5c9155b80924023889992da28dbb9659a4b1e10c7be446fdbec3487173"
   license "MIT"
 
   depends_on :macos
