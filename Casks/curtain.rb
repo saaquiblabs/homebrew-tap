@@ -9,6 +9,8 @@ cask "curtain" do
 
   depends_on macos: :ventura
 
+  app "curtain-#{version}/build/Curtain.app"
+
   # Built from source on this Mac (needs the Command Line Tools), like the Lost Buttons formula,
   # but as a cask: Curtain.app lands in /Applications, where Spotlight finds it (it doesn't index
   # Homebrew's Cellar), and Homebrew quits it on uninstall and reopens it after an upgrade.
@@ -19,11 +21,11 @@ cask "curtain" do
     run "/usr/bin/xattr", args: ["-dr", "com.apple.quarantine", "{{staged_path}}"],
                           must_succeed: false, writable_paths: ["{{staged_path}}"]
     run "/usr/bin/make", args: ["test", "app"], chdir: "curtain-#{version}",
+                         # Homebrew swaps HOME for a temp dir here; the certificate must stay in
+                         # the real one or every upgrade makes a new one (brew style flags this).
                          env: { "HOME" => Dir.home },
                          writable_paths: ["{{staged_path}}", "#{Dir.home}/Library/Keychains"]
   end
-
-  app "curtain-#{version}/build/Curtain.app"
 
   # Quitting restores every screen (back on, original brightness and colours).
   uninstall quit:   "com.saaquiblabs.curtain",
