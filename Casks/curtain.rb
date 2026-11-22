@@ -1,6 +1,6 @@
 cask "curtain" do
-  version "0.4.0"
-  sha256 "f8df1b40d63ba5420ed8ea8887012cb6045546fe970b98a98cf96c81f1e47eb0"
+  version "0.4.1"
+  sha256 "76478ab4d1d555c1f7d3a3566ac2ed0c0b6f08d4be9621b5d14750c09c953a9e"
 
   url "https://github.com/saaquiblabs/curtain/archive/refs/tags/v#{version}.tar.gz"
   name "Curtain"
@@ -15,7 +15,7 @@ cask "curtain" do
 
   depends_on macos: :ventura
 
-  app "curtain-#{version}/build/Curtain.app"
+  app "curtain-#{version}/build/app.noindex/Curtain.app"
   # `curtain --version` in the terminal. Run with no arguments it opens Curtain, as the app does.
   binary "#{appdir}/Curtain.app/Contents/MacOS/curtain"
 
