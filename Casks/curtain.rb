@@ -1,6 +1,6 @@
 cask "curtain" do
-  version "0.4.1"
-  sha256 "76478ab4d1d555c1f7d3a3566ac2ed0c0b6f08d4be9621b5d14750c09c953a9e"
+  version "0.4.2"
+  sha256 "902026383c5397a865a77651c128d28918bb5ad0e05a395687a85deb808030d7"
 
   url "https://github.com/saaquiblabs/curtain/archive/refs/tags/v#{version}.tar.gz"
   name "Curtain"
@@ -28,6 +28,12 @@ cask "curtain" do
     # The download is quarantined; the app is built here, so it needs no Gatekeeper check.
     run "/usr/bin/xattr", args: ["-dr", "com.apple.quarantine", "{{staged_path}}"],
                           must_succeed: false, writable_paths: ["{{staged_path}}"]
+    # The signing keychain goes on the user's keychain search list, or codesign finds no identity
+    # in it on macOS 26 (curtain#37). That list lives in ~/Library/Preferences, so this one step,
+    # which only runs the certificate script, may write there.
+    run "/bin/sh", args: ["Tools/signing-identity.sh"], chdir: "curtain-#{version}",
+                   env:            { "HOME" => Dir.home },
+                   writable_paths: ["#{Dir.home}/Library/Keychains", "#{Dir.home}/Library/Preferences"]
     run "/usr/bin/make", args: ["test", "app"], chdir: "curtain-#{version}",
                          # Homebrew swaps HOME for a temp dir here; the certificate must stay in
                          # the real one or every upgrade makes a new one (brew style flags this).
