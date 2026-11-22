@@ -7,9 +7,17 @@ cask "curtain" do
   desc "Brightness for every screen, and turn any screen off, from the menu bar"
   homepage "https://github.com/saaquiblabs/curtain"
 
+  # New versions are git tags (v0.3.0); `brew livecheck curtain` lists the newest.
+  livecheck do
+    url "https://github.com/saaquiblabs/curtain.git"
+    strategy :git
+  end
+
   depends_on macos: :ventura
 
   app "curtain-#{version}/build/Curtain.app"
+  # `curtain --version` in the terminal. Run with no arguments it opens Curtain, as the app does.
+  binary "#{appdir}/Curtain.app/Contents/MacOS/curtain"
 
   # Built from source on this Mac (needs the Command Line Tools), like the Lost Buttons formula,
   # but as a cask: Curtain.app lands in /Applications, where Spotlight finds it (it doesn't index
