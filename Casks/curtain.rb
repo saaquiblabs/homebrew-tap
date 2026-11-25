@@ -1,6 +1,6 @@
 cask "curtain" do
-  version "0.5.0"
-  sha256 "e3f80ff0e44b1961f5fa7c6d46b2805ab7a232f5e997066821677af147b9644f"
+  version "0.5.1"
+  sha256 "19bb659bbc0211222502f743525aa50107501b89b7f5e5ae18ba9ce84ab6fbaa"
 
   url "https://github.com/saaquiblabs/curtain/archive/refs/tags/v#{version}.tar.gz"
   name "Curtain"
