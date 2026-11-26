@@ -5,7 +5,7 @@ cask "curtain" do
   url "https://github.com/saaquiblabs/curtain/archive/refs/tags/v#{version}.tar.gz"
   name "Curtain"
   desc "Brightness for every screen, and turn any screen off, from the menu bar"
-  homepage "https://github.com/saaquiblabs/curtain"
+  homepage "https://curtain.saaquiblabs.com"
 
   # New versions are git tags (v0.3.0); `brew livecheck curtain` lists the newest.
   livecheck do
